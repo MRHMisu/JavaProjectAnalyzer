@@ -1,4 +1,4 @@
-package misu.be.imp.bd.ac.du.iit;
+package iit.du.ac.bd.misubeimp;
 
 import java.io.FileInputStream;
 import java.util.ArrayList;
@@ -9,21 +9,24 @@ import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
+import iit.du.ac.bd.misubeimp.dao.MongoDBAccess;
+import iit.du.ac.bd.misubeimp.model.Method;
+
 public class MethodPrinter {
 
 	public static void main(String[] args) throws Exception {
 		// creates an input stream for the file to be parsed
-		FileInputStream in = new FileInputStream("C://Users//MisuBeImp//Desktop//SimpleCalculatorOperation.java");
+		FileInputStream in = new FileInputStream("D:\\Masters Lab\\ParsingJavaProject\\src\\parser\\FileParser.java");
 
 		// parse it
 		CompilationUnit cu = JavaParser.parse(in);
-
+		//cu.get
 		// visit and print the methods names
-		MethodVisitor methodVisitor=new MethodVisitor();
+		MethodVisitor methodVisitor = new MethodVisitor();
 		methodVisitor.visit(cu, null);
-		List<Method> methods=methodVisitor.getMethodList();
-		MongoDBAccess.getAccess(methods);
-		
+		// List<Method> methods=methodVisitor.getMethodList();
+		// MongoDBAccess.getAccess(methods);
+
 	}
 
 	/**
@@ -45,7 +48,8 @@ public class MethodPrinter {
 			String Name = n.getNameAsString();
 			String Signature = n.getDeclarationAsString().toString();
 			Method method = new Method(Modifier, ReturnType, Name, Signature);
-			methods.add(method);
+			//System.out.println(n.);
+			// methods.add(method);
 
 		}
 

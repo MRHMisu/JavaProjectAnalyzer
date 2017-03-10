@@ -1,4 +1,4 @@
-package misu.be.imp.bd.ac.du.iit;
+package iit.du.ac.bd.misubeimp;
 import java.io.FileInputStream;
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ast.CompilationUnit;

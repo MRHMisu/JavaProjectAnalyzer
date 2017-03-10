@@ -1,4 +1,4 @@
-package misu.be.imp.bd.ac.du.iit;
+package iit.du.ac.bd.misubeimp.dao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +8,8 @@ import org.bson.Document;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+
+import iit.du.ac.bd.misubeimp.model.Method;
 
 public class MongoDBAccess {
 
@@ -28,7 +30,7 @@ public class MongoDBAccess {
 
 			List<Document> documents = new ArrayList<Document>();
 			for (Method m : methods) {
-				documents.add(m.getBsonNMethod());
+				documents.add(m.getBsonMethod());
 			}
 			collection.insertMany(documents);
 			mongoClient.close();

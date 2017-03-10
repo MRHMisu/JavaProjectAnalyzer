@@ -1,4 +1,4 @@
-package misu.be.imp.bd.ac.du.iit;
+package iit.du.ac.bd.misubeimp.model;
 
 import org.bson.Document;
 
@@ -11,10 +11,10 @@ public class Method {
 
 	public Method(String modifier, String returnType, String name, String signature) {
 
-		Modifier = modifier;
-		ReturnType = returnType;
-		Name = name;
-		Signature = signature;
+		this.Modifier = modifier;
+		this.ReturnType = returnType;
+		this.Name = name;
+		this.Signature = signature;
 	}
 
 	@Override
@@ -24,7 +24,7 @@ public class Method {
 				+ "signature: " + Signature + '\n';
 	}
 
-	public Document getBsonNMethod() {
+	public Document getBsonMethod() {
 		Document document = new Document("modifier", this.Modifier).append("returnType", ReturnType)
 				.append("name", Name).append("signature", Signature);
 		return document;
