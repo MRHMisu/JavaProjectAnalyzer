@@ -43,6 +43,7 @@ public class MethodPrinter {
 			 * will be called for all methods in this CompilationUnit, including
 			 * inner class methods
 			 */
+			//super.visit(n, arg);
 			String Modifier = n.getModifiers().toString();
 			String ReturnType = n.getType().toString();
 			String Name = n.getNameAsString();

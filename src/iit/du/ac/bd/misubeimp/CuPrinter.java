@@ -7,7 +7,7 @@ public class CuPrinter {
 
     public static void main(String[] args) throws Exception {
         // creates an input stream for the file to be parsed
-        FileInputStream in = new FileInputStream("C://Users//MisuBeImp//Desktop//DateCalculatorOperation.java");
+        FileInputStream in = new FileInputStream("C://Users//MisuBeImp//Desktop//SimpleCalculatorOperation.java");
 
         // parse the file
         CompilationUnit cu = JavaParser.parse(in);

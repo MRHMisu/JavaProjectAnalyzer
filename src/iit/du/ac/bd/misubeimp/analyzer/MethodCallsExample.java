@@ -32,7 +32,8 @@ public class MethodCallsExample {
     }
 
     public static void main(String[] args) {
-        File projectDir = new File("D:\\Masters Lab\\ParsingJavaProject");
+        File projectDir = new File("C:\\Users\\MisuBeImp\\Downloads\\UltimateCalculator-master\\UltimateCalculator-master");
         listMethodCalls(projectDir);
+        int m=0;
     }
 }

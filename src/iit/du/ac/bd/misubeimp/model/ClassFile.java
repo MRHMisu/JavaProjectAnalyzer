@@ -16,6 +16,10 @@ public class ClassFile {
 		this.ProjectName = projectName;
 	}
 
+	public String getAbsolutePath() {
+		return AbsolutePath;
+	}
+
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
