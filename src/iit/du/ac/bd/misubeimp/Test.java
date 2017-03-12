@@ -2,11 +2,12 @@ package iit.du.ac.bd.misubeimp;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import iit.du.ac.bd.misubeimp.analyzer.MethodExtractor;
 import iit.du.ac.bd.misubeimp.analyzer.SourceFileCollector;
-import iit.du.ac.bd.misubeimp.dao.MongoDBAccess;
 import iit.du.ac.bd.misubeimp.model.ClassFile;
 import iit.du.ac.bd.misubeimp.model.Method;
 
@@ -19,7 +20,7 @@ public class Test {
 		SourceFileCollector sourceFileCollector = new SourceFileCollector();
 
 		List<ClassFile> classFiles = sourceFileCollector.getAllFilesFromSourceDirectory(directorypath);
-		List<Method> methods = new ArrayList<Method>();
+		Set<Method> methods = new HashSet<Method>();
 		MethodExtractor methodExtractor = new MethodExtractor();
 		System.out.println(methods.size());
 		for (ClassFile c : classFiles) {
@@ -28,6 +29,8 @@ public class Test {
 		}
 		System.out.println(methods.size());
 		int v = 0;
+		
+		
 		// MongoDBAccess.getAccess(methods);
 
 	}
