@@ -9,14 +9,14 @@ import com.github.javaparser.JavaParser;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
-import iit.du.ac.bd.misubeimp.model.ClassFile;
+import iit.du.ac.bd.misubeimp.model.SourceFile;
 import iit.du.ac.bd.misubeimp.support.DirectoryExplorer;
 
 public class ListClassesExample {
 
-	public static List<ClassFile> getAllClasses(File projectDir) {
+	public static List<SourceFile> getAllClasses(File projectDir) {
 		
-		List<ClassFile> classFiles=new ArrayList<ClassFile>();
+		List<SourceFile> classFiles=new ArrayList<SourceFile>();
 		new DirectoryExplorer((level, path, file) -> path.endsWith(".java"), (level, path, file) -> {
 			//System.out.println(path);
 			//System.out.println(Strings.repeat("=", path.length()));
@@ -28,7 +28,7 @@ public class ListClassesExample {
 						String modifiedPath=path.replace("/", "\\");
 						String absolutePath=projectDir+modifiedPath;
 						String name=n.getName().toString();
-						classFiles.add(new ClassFile(name+".java",name,absolutePath, "MyProject"));
+						//classFiles.add(new SourceFile(name+".java",name,absolutePath, "MyProject"));
 						//System.out.println(" * " + n.getName());
 						//System.out.println(path);
 					}
@@ -44,7 +44,7 @@ public class ListClassesExample {
 
 	public static void main(String[] args) {
 		File projectDir = new File("D:\\Masters Lab\\ParsingJavaProject");
-		List<ClassFile> classFiles = getAllClasses(projectDir);
+		List<SourceFile> classFiles = getAllClasses(projectDir);
 		int m = 0;
 	}
 }

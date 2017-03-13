@@ -1,15 +1,18 @@
 package iit.du.ac.bd.misubeimp;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.bson.types.ObjectId;
+
 import iit.du.ac.bd.misubeimp.analyzer.MethodExtractor;
 import iit.du.ac.bd.misubeimp.analyzer.SourceFileCollector;
-import iit.du.ac.bd.misubeimp.model.ClassFile;
+import iit.du.ac.bd.misubeimp.dao.MongoDBAccess;
 import iit.du.ac.bd.misubeimp.model.Method;
+import iit.du.ac.bd.misubeimp.model.Project;
+import iit.du.ac.bd.misubeimp.model.SourceFile;
 
 public class Test {
 
@@ -17,13 +20,19 @@ public class Test {
 
 		File directorypath = new File(
 				"C:\\Users\\MisuBeImp\\Downloads\\UltimateCalculator-master\\UltimateCalculator-master");
-		SourceFileCollector sourceFileCollector = new SourceFileCollector();
+		
 
-		List<ClassFile> classFiles = sourceFileCollector.getAllFilesFromSourceDirectory(directorypath);
+		ObjectId projectID=MongoDBAccess.getIDFromProjectInserting(new Project("Misu", "Optional"));
+		SourceFileCollector sourceFileCollector = new SourceFileCollector(projectID);
+		
+		
+		List<SourceFile> sourceFiles = sourceFileCollector.getAllFilesFromSourceDirectory(directorypath);
 		Set<Method> methods = new HashSet<Method>();
-		MethodExtractor methodExtractor = new MethodExtractor();
+		
 		System.out.println(methods.size());
-		for (ClassFile c : classFiles) {
+		for (SourceFile c : sourceFiles) {
+			ObjectId sourceFileID= MongoDBAccess.getIDFromSourceFileInserting(c);
+			MethodExtractor methodExtractor = new MethodExtractor(sourceFileID,c.getProjectID());
 			methods.addAll(methodExtractor.getAllMethods(new File(c.getAbsolutePath())));
 			System.out.println(methods.size());
 		}
@@ -31,7 +40,7 @@ public class Test {
 		int v = 0;
 		
 		
-		// MongoDBAccess.getAccess(methods);
+		 MongoDBAccess.getAccess(methods);
 
 	}
 

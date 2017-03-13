@@ -5,18 +5,28 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bson.types.ObjectId;
+
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
-import iit.du.ac.bd.misubeimp.model.ClassFile;
+import iit.du.ac.bd.misubeimp.model.SourceFile;
 import iit.du.ac.bd.misubeimp.support.DirectoryExplorer;
 
 public class SourceFileCollector {
 
-	public List<ClassFile> getAllFilesFromSourceDirectory(File directoryPath) {
-		String projectName=directoryPath.getName();
-		List<ClassFile> classFiles = new ArrayList<ClassFile>();
+	private ObjectId projectId;
+	
+	
+	public SourceFileCollector(ObjectId projectId) {
+		this.projectId = projectId;
+	}
+
+
+	public List<SourceFile> getAllFilesFromSourceDirectory(File directoryPath) {
+		//String projectName=directoryPath.getName();
+		List<SourceFile> classFiles = new ArrayList<SourceFile>();
 		new DirectoryExplorer((level, path, file) -> path.endsWith(".java"), (level, path, file) -> {
 			try {
 				new VoidVisitorAdapter<Object>() {
@@ -25,8 +35,8 @@ public class SourceFileCollector {
 						super.visit(n, arg);
 						String modifiedPath = path.replace("/", "\\");
 						String absolutePath = directoryPath + modifiedPath;
-						String name = n.getName().toString();
-						classFiles.add(new ClassFile(name + ".java", name, absolutePath,projectName));
+						String fileName = n.getName().toString();
+						classFiles.add(new SourceFile(fileName + ".java", fileName, absolutePath,projectId));
 					}
 				}.visit(JavaParser.parse(file), null);
 			} catch (IOException e) {

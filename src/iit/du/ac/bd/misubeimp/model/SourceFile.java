@@ -1,35 +1,41 @@
 package iit.du.ac.bd.misubeimp.model;
 
 import org.bson.Document;
+import org.bson.types.ObjectId;
 
-public class ClassFile {
+public class SourceFile {
 
 	private String FileName;
 	private String ClassName;
 	private String AbsolutePath;
-	private String ProjectName;
+	private ObjectId ProjectID;
+	
 
-	public ClassFile(String fileName, String className, String absolutePath, String projectName) {
+	
+	public SourceFile(String fileName, String className, String absolutePath, ObjectId projectID) {
 		this.FileName = fileName;
 		this.ClassName = className;
 		this.AbsolutePath = absolutePath;
-		this.ProjectName = projectName;
+		this.ProjectID = projectID;
 	}
 
 	public String getAbsolutePath() {
 		return AbsolutePath;
 	}
-
+	public ObjectId getProjectID() {
+		return ProjectID;
+	}
+	
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
 		return "fileName: " + this.FileName + '\n' + "className: " + this.ClassName + '\n' + "absolutePath: "
-				+ this.AbsolutePath + '\n' + "projectName: " + this.ProjectName + '\n';
+				+ this.AbsolutePath + '\n' + "projectID: " + this.ProjectID + '\n';
 	}
 
-	public Document getBsonClassFile() {
+	public Document getBsonSourceFile() {
 		Document document = new Document("fileName", this.FileName).append("className", this.ClassName)
-				.append("absolutePath", this.AbsolutePath).append("projectName", this.ProjectName);
+				.append("absolutePath", this.AbsolutePath).append("projectID", this.ProjectID);
 		return document;
 	}
 

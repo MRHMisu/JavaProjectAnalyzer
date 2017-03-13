@@ -48,7 +48,7 @@ public class MethodPrinter {
 			String ReturnType = n.getType().toString();
 			String Name = n.getNameAsString();
 			String Signature = n.getDeclarationAsString().toString();
-			Method method = new Method(Modifier, ReturnType, Name, Signature);
+			//Method method = new Method(Modifier, ReturnType, Name, Signature);
 			//System.out.println(n.);
 			// methods.add(method);
 
