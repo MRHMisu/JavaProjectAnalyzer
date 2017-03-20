@@ -1,41 +1,41 @@
 package iit.du.ac.bd.misubeimp.model;
 
+import java.util.Set;
+
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
 public class SourceFile {
 
-	private String FileName;
-	private String ClassName;
-	private String AbsolutePath;
-	private ObjectId ProjectID;
+	ObjectId sourceFileId;
+	private String fileName;
+	private String fileType;
+	private Set<String> className;
+	private String absolutePath;
 	
 
 	
-	public SourceFile(String fileName, String className, String absolutePath, ObjectId projectID) {
-		this.FileName = fileName;
-		this.ClassName = className;
-		this.AbsolutePath = absolutePath;
-		this.ProjectID = projectID;
+	public SourceFile(String fileName, Set<String> className, String absolutePath) {
+		sourceFileId=new ObjectId();
+		this.fileName = fileName;
+		this.className = className;
+		this.absolutePath = absolutePath;
 	}
 
 	public String getAbsolutePath() {
-		return AbsolutePath;
-	}
-	public ObjectId getProjectID() {
-		return ProjectID;
+		return absolutePath;
 	}
 	
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return "fileName: " + this.FileName + '\n' + "className: " + this.ClassName + '\n' + "absolutePath: "
-				+ this.AbsolutePath + '\n' + "projectID: " + this.ProjectID + '\n';
+		return "fileName: " + this.fileName + '\n' + "className: " + this.className + '\n' + "absolutePath: "
+				+ this.absolutePath + '\n' ;
 	}
 
 	public Document getBsonSourceFile() {
-		Document document = new Document("fileName", this.FileName).append("className", this.ClassName)
-				.append("absolutePath", this.AbsolutePath).append("projectID", this.ProjectID);
+		Document document = new Document("fileName", this.fileName).append("className", this.className)
+				.append("absolutePath", this.absolutePath);
 		return document;
 	}
 

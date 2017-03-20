@@ -25,11 +25,14 @@ public class ListClassesExample {
 					@Override
 					public void visit(ClassOrInterfaceDeclaration n, Object arg) {
 						super.visit(n, arg);
-						String modifiedPath=path.replace("/", "\\");
-						String absolutePath=projectDir+modifiedPath;
 						String name=n.getName().toString();
+						int k=0;
+						System.out.println();
+						//String modifiedPath=path.replace("/", "\\");
+						//String absolutePath=projectDir+modifiedPath;
+						//String name=n.getName().toString();
 						//classFiles.add(new SourceFile(name+".java",name,absolutePath, "MyProject"));
-						//System.out.println(" * " + n.getName());
+						System.out.println(" * " + n.getName());
 						//System.out.println(path);
 					}
 				}.visit(JavaParser.parse(file), null);
@@ -43,7 +46,7 @@ public class ListClassesExample {
 	}
 
 	public static void main(String[] args) {
-		File projectDir = new File("D:\\Masters Lab\\ParsingJavaProject");
+		File projectDir = new File("D:\\NK");
 		List<SourceFile> classFiles = getAllClasses(projectDir);
 		int m = 0;
 	}

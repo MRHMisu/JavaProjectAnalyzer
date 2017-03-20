@@ -26,17 +26,19 @@ public class SourceFileCollector {
 
 	public List<SourceFile> getAllFilesFromSourceDirectory(File directoryPath) {
 		//String projectName=directoryPath.getName();
-		List<SourceFile> classFiles = new ArrayList<SourceFile>();
+		List<SourceFile> sourceFiles = new ArrayList<SourceFile>();
 		new DirectoryExplorer((level, path, file) -> path.endsWith(".java"), (level, path, file) -> {
 			try {
 				new VoidVisitorAdapter<Object>() {
 					@Override
 					public void visit(ClassOrInterfaceDeclaration n, Object arg) {
 						super.visit(n, arg);
+						
 						String modifiedPath = path.replace("/", "\\");
 						String absolutePath = directoryPath + modifiedPath;
 						String fileName = n.getName().toString();
-						classFiles.add(new SourceFile(fileName + ".java", fileName, absolutePath,projectId));
+						
+						
 					}
 				}.visit(JavaParser.parse(file), null);
 			} catch (IOException e) {
@@ -44,7 +46,7 @@ public class SourceFileCollector {
 			}
 		}).explore(directoryPath);
 
-		return classFiles;
+		return sourceFiles;
 	}
 
 	/*public static void main(String[] args) {

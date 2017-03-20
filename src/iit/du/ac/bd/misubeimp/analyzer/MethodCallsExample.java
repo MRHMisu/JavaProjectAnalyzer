@@ -33,6 +33,7 @@ public class MethodCallsExample {
                     @Override
                     public void visit(MethodCallExpr n, Object arg) {
                         super.visit(n, arg);
+                       
                         System.out.println(" [L " + n.getRange() + "] " + n);
                         
                     }

@@ -1,21 +1,24 @@
 package iit.du.ac.bd.misubeimp.analyzer;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import org.bson.types.ObjectId;
 
 import com.github.javaparser.JavaParser;
-import com.github.javaparser.ast.CompilationUnit;
+import com.github.javaparser.Range;
+import com.github.javaparser.ast.Modifier;
+import com.github.javaparser.ast.NodeList;
 import com.github.javaparser.ast.body.MethodDeclaration;
+import com.github.javaparser.ast.body.Parameter;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
 import iit.du.ac.bd.misubeimp.model.Method;
+import iit.du.ac.bd.misubeimp.model.MethodBody;
+import iit.du.ac.bd.misubeimp.model.MethodParameter;
 
 public class MethodExtractor {
 
@@ -33,12 +36,28 @@ public class MethodExtractor {
 			new VoidVisitorAdapter<Object>() {
 				@Override
 				public void visit(MethodDeclaration n, Object arg) {
-					String Modifier = n.getModifiers().toString();
-					String ReturnType = n.getType().toString();
-					String Name = n.getNameAsString();
-					String Signature = n.getDeclarationAsString().toString();
-
-					methods.add(new Method(Modifier, ReturnType, Name, Signature, SourceFileId, ProjectID));
+					Set<Modifier> modifiers = n.getModifiers();
+					String returnType = n.getType().toString();
+					String name = n.getNameAsString();
+					String signature = n.getDeclarationAsString().toString();
+					NodeList<Parameter> parametersList = n.getParameters();
+					Set<MethodParameter> parameters=new HashSet<MethodParameter>();
+					int order=0;
+					for(Parameter m:parametersList)
+					{
+						parameters.add(new MethodParameter(order,m.getNameAsString(),m.getType().toString()));
+						order++;
+					}
+					
+					Range r=n.getRange().get();
+					int startLine=r.begin.line;
+					int endLine=r.end.line;
+					int length=(endLine-startLine)+1;
+					String body=n.getBody().toString();
+					MethodBody methodBody=new MethodBody(startLine, endLine, length, body);
+					
+					
+					//methods.add(new Method(Modifier, ReturnType, Name, Signature,parameterModel,SourceFileId, ProjectID));
 					super.visit(n, arg);
 				}
 			}.visit(JavaParser.parse(filePath), null);
@@ -50,10 +69,8 @@ public class MethodExtractor {
 		return methods;
 	}
 
-	/*
-	 * public static void main(String[] args) { File projectDir = new
-	 * File("C://Users//MisuBeImp//Desktop//SimpleCalculatorOperation.java");
-	 * List<Method> methods = getAllMethods(projectDir); int m = 0; }
-	 */
+	
+	  
+	 
 
 }

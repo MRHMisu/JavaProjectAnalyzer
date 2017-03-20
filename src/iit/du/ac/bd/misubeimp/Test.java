@@ -19,10 +19,11 @@ public class Test {
 	public static void main(String[] args) throws Exception {
 
 		File directorypath = new File(
-				"C:\\Users\\MisuBeImp\\Downloads\\UltimateCalculator-master\\UltimateCalculator-master");
+				"D:\\Design Pattern Strategy Pattern");
 		
-
-		ObjectId projectID=MongoDBAccess.getIDFromProjectInserting(new Project("Misu", "Optional"));
+		ObjectId projectID =new ObjectId();
+		
+		//ObjectId projectID=MongoDBAccess.getIDFromProjectInserting(new Project("Misu", "Optional"));
 		SourceFileCollector sourceFileCollector = new SourceFileCollector(projectID);
 		
 		
@@ -31,7 +32,7 @@ public class Test {
 		
 		System.out.println(methods.size());
 		for (SourceFile c : sourceFiles) {
-			ObjectId sourceFileID= MongoDBAccess.getIDFromSourceFileInserting(c);
+			ObjectId sourceFileID=new ObjectId(); //MongoDBAccess.getIDFromSourceFileInserting(c);
 			MethodExtractor methodExtractor = new MethodExtractor(sourceFileID,c.getProjectID());
 			methods.addAll(methodExtractor.getAllMethods(new File(c.getAbsolutePath())));
 			System.out.println(methods.size());
@@ -40,7 +41,7 @@ public class Test {
 		int v = 0;
 		
 		
-		 MongoDBAccess.getAccess(methods);
+		 //MongoDBAccess.getAccess(methods);
 
 	}
 
