@@ -1,4 +1,4 @@
-package iit.du.ac.bd.misubeimp.analyzer;
+package iit.du.ac.bd.misubeimp.example;
 
 import java.io.File;
 import java.io.IOException;

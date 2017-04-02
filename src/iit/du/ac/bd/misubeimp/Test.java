@@ -18,8 +18,8 @@ public class Test {
 
 	public static void main(String[] args) throws Exception {
 
-		File directorypath = new File(
-				"D:\\Design Pattern Strategy Pattern");
+		String basePath="D:\\Masters\\PaperDataset\\DataSet_2014_SCAM_An Empirical Analysis of Bug Patterns in Java Code Clones\\projects-src\\projects\\projects";
+		File directorypath = new File(basePath+"\\"+"ant");
 		
 		ObjectId projectID =new ObjectId();
 		
@@ -27,14 +27,15 @@ public class Test {
 		SourceFileCollector sourceFileCollector = new SourceFileCollector(projectID);
 		
 		
-		List<SourceFile> sourceFiles = sourceFileCollector.getAllFilesFromSourceDirectory(directorypath);
+		List<SourceFile> sourceFiles = SourceFileCollector.getAllFilesFromSourceDirectory(directorypath);
+		System.out.println(sourceFiles.size());
 		Set<Method> methods = new HashSet<Method>();
 		
 		System.out.println(methods.size());
 		for (SourceFile c : sourceFiles) {
 			ObjectId sourceFileID=new ObjectId(); //MongoDBAccess.getIDFromSourceFileInserting(c);
-			MethodExtractor methodExtractor = new MethodExtractor(sourceFileID,c.getProjectID());
-			methods.addAll(methodExtractor.getAllMethods(new File(c.getAbsolutePath())));
+			//MethodExtractor methodExtractor = new MethodExtractor(sourceFileID,c.getProjectID());
+			//methods.addAll(methodExtractor.getAllMethods(new File(c.getAbsolutePath())));
 			System.out.println(methods.size());
 		}
 		System.out.println(methods.size());

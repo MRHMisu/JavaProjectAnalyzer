@@ -54,7 +54,7 @@ public class MethodExtractor {
 					int endLine=r.end.line;
 					int length=(endLine-startLine)+1;
 					String body=n.getBody().toString();
-					MethodBody methodBody=new MethodBody(startLine, endLine, length, body);
+					//MethodBody methodBody=new MethodBody(startLine, endLine, length, body);
 					
 					
 					//methods.add(new Method(Modifier, ReturnType, Name, Signature,parameterModel,SourceFileId, ProjectID));

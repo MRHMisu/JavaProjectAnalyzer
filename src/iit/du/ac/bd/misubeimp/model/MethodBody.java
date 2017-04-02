@@ -9,11 +9,11 @@ public class MethodBody {
 	private int length;
 	private String body;
 
-	public MethodBody(int startLine, int endLine, int length, String body) {
+	public MethodBody(int startLine, int endLine, String body) {
 		this.startLine = startLine;
 		this.endLine = endLine;
-		this.length = length;
 		this.body = body;
+		this.length = (this.startLine - this.endLine);
 	}
 
 	public Document getBsonMethodBody() {
