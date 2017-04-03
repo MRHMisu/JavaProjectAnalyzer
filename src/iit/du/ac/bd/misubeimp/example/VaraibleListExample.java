@@ -1,4 +1,4 @@
-package iit.du.ac.bd.misubeimp;
+package iit.du.ac.bd.misubeimp.example;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -11,7 +11,7 @@ import com.github.javaparser.ast.body.VariableDeclarator;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
 
-public class VaraiblePrinter {
+public class VaraibleListExample {
 
 	public static void main(String[] args) throws FileNotFoundException {
 		// TODO Auto-generated method stub

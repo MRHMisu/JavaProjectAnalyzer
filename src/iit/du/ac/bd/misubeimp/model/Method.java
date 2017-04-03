@@ -7,23 +7,30 @@ import org.bson.types.ObjectId;
 
 public class Method {
 
+	private ObjectId projectId;
+	private ObjectId sourceFileId;
 	private ObjectId methodId;
+	private String name;
 	private Set<String> modifiers;
 	private String returnType;
-	private String name;
 	private String signature;
 	private Set<MethodParameter> parameters;
 	private MethodBody methodbody;
+	private String sourcePath;
 
-	public Method(Set<String> modifiers, String returnType, String name, String signature,Set<MethodParameter> parameters, MethodBody methodBody) {
+	public Method(ObjectId projectId, ObjectId sourceFileId, String sourcePath, Set<String> modifiers,
+			String returnType, String name, String signature, Set<MethodParameter> parameters, MethodBody methodBody) {
 
-		this.methodId=new ObjectId();
+		this.projectId = projectId;
+		this.sourceFileId = sourceFileId;
+		this.sourcePath = sourcePath;
+		this.methodId = new ObjectId();
 		this.modifiers = modifiers;
 		this.returnType = returnType;
 		this.name = name;
 		this.signature = signature;
 		this.parameters = parameters;
-		this.methodbody=methodBody;
+		this.methodbody = methodBody;
 	}
 
 	@Override
@@ -34,25 +41,24 @@ public class Method {
 	}
 
 	public Document getBsonMethod() {
-		Document document = new Document("_id",this.methodId).append("modifier", this.modifiers).append("returnType", returnType)
-				.append("name", name).append("signature", signature);
+		Document document = new Document("_id", this.methodId).append("projectId", this.projectId)
+				.append("sourcePath", sourcePath).append("sourceFileId", sourceFileId)
+				.append("modifier", this.modifiers).append("returnType", returnType).append("name", name)
+				.append("signature", signature);
 
 		document.put("parameters", this.getBsonParameterList());
-		document.put("methodBody",this.methodbody.getBsonMethodBody());
-		
+		document.put("methodBody", this.methodbody.getBsonMethodBody());
+
 		return document;
 	}
 
-	public Document getBsonParameterList()
-	{
+	public Document getBsonParameterList() {
 		Document document = new Document();
-		for( MethodParameter m:this.parameters)
-		{
-			document.put(m.getOrder(),m.getParameterModel());	
+		for (MethodParameter m : this.parameters) {
+			document.put(m.getOrder(), m.getParameterModel());
 		}
-		return document;	
+		return document;
 	}
-	
 
 	@Override
 	public int hashCode() {
@@ -66,5 +72,4 @@ public class Method {
 		return super.equals(obj);
 	}
 
-	
 }

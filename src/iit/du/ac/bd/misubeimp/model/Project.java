@@ -1,7 +1,5 @@
 package iit.du.ac.bd.misubeimp.model;
 
-import java.util.List;
-
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
@@ -9,25 +7,24 @@ public class Project {
 
 	private ObjectId projectId;
 	private String name;
-	private String description;
-	private String version;
-	private int  numberOfSourceFiles;
-	private List<String> sourceFileNames;
-	
 
-	public Project(String name, String description) {
+	public Project(String name) {
+		this.projectId = new ObjectId();
 		this.name = name;
-		this.description = description;
+	}
+
+	public ObjectId getProjectId() {
+		return this.projectId;
 	}
 
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return "Name: " + name + '\n' + "Description: " + description;
+		return "Name: " + name + '\n';
 	}
 
 	public Document getBsonProject() {
-		Document document = new Document("name", this.name).append("description", description);
+		Document document = new Document("name", this.name);
 		return document;
 	}
 

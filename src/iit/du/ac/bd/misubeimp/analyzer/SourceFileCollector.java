@@ -17,15 +17,16 @@ public class SourceFileCollector {
 		this.projectId = projectId;
 	}
 
-	public static List<SourceFile> getAllFilesFromSourceDirectory(File directoryPath) {
+	public List<SourceFile> getAllFilesFromSourceDirectory(File directoryPath) {
 		// String projectName=directoryPath.getName();
 		List<SourceFile> sourceFiles = new ArrayList<SourceFile>();
 		new DirectoryExplorer((level, path, file) -> path.endsWith(".java"), (level, path, file) -> {
 
 			String modifiedPath = path.replace("/", "\\");
 			String absolutePath = directoryPath + modifiedPath;
+			String sourcepath = modifiedPath.replace("\\", ".").substring(1).replace(".java","");;
 			String fileName = new File(absolutePath).getName().toString();
-			SourceFile sourceFile = new SourceFile(fileName, absolutePath);
+			SourceFile sourceFile = new SourceFile(this.projectId, fileName, absolutePath, sourcepath);
 			sourceFiles.add(sourceFile);
 
 		}).explore(directoryPath);
@@ -34,8 +35,10 @@ public class SourceFileCollector {
 	}
 
 	/*public static void main(String[] args) {
-		File projectDir = new File("D:\\Masters\\MastersLab\\MastersJavaWork\\IntefaceLoader");
-		List<SourceFile> sourceFiles = getAllFilesFromSourceDirectory(projectDir);
+		File projectDir = new File(
+				"D:\\Masters\\PaperDataset\\2017_ESE_Raters_Reliability\\materials\\ese15-charpentier-al\\data\\fastr");
+		ObjectId projectId = new ObjectId();
+		List<SourceFile> sourceFiles = new SourceFileCollector(projectId).getAllFilesFromSourceDirectory(projectDir);
 		System.out.println(sourceFiles.size());
 		for (SourceFile f : sourceFiles) {
 			System.out.println(f);

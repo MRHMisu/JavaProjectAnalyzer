@@ -22,12 +22,14 @@ import iit.du.ac.bd.misubeimp.model.MethodParameter;
 
 public class MethodExtractor {
 
-	private ObjectId SourceFileId;
-	private ObjectId ProjectID;
+	private ObjectId sourceFileId;
+	private ObjectId projectId;
+	private String sourcePath;
 
-	public MethodExtractor(ObjectId sourceFileId, ObjectId projectID) {
-		this.SourceFileId = sourceFileId;
-		this.ProjectID = projectID;
+	public MethodExtractor(ObjectId sourceFileId, ObjectId projectId, String sourcePath) {
+		this.sourceFileId = sourceFileId;
+		this.projectId = projectId;
+		this.sourcePath = sourcePath;
 	}
 
 	public Set<Method> getAllMethods(File filePath) {
@@ -36,28 +38,32 @@ public class MethodExtractor {
 			new VoidVisitorAdapter<Object>() {
 				@Override
 				public void visit(MethodDeclaration n, Object arg) {
-					Set<Modifier> modifiers = n.getModifiers();
+					Set<Modifier> modifierList = n.getModifiers();
 					String returnType = n.getType().toString();
 					String name = n.getNameAsString();
 					String signature = n.getDeclarationAsString().toString();
 					NodeList<Parameter> parametersList = n.getParameters();
-					Set<MethodParameter> parameters=new HashSet<MethodParameter>();
-					int order=0;
-					for(Parameter m:parametersList)
-					{
-						parameters.add(new MethodParameter(order,m.getNameAsString(),m.getType().toString()));
+					Set<MethodParameter> parameters = new HashSet<MethodParameter>();
+					int order = 0;
+					for (Parameter m : parametersList) {
+						parameters.add(new MethodParameter(order, m.getNameAsString(), m.getType().toString()));
 						order++;
 					}
-					
-					Range r=n.getRange().get();
-					int startLine=r.begin.line;
-					int endLine=r.end.line;
-					int length=(endLine-startLine)+1;
-					String body=n.getBody().toString();
-					//MethodBody methodBody=new MethodBody(startLine, endLine, length, body);
-					
-					
-					//methods.add(new Method(Modifier, ReturnType, Name, Signature,parameterModel,SourceFileId, ProjectID));
+
+					Set<String> modifiers = new TreeSet<String>();
+					for (Modifier m : modifierList) {
+						modifiers.add(m.toString());
+					}
+
+					Range r = n.getRange().get();
+					int startLine = r.begin.line;
+					int endLine = r.end.line;
+					String body = n.getBody().toString();
+					MethodBody methodBody = new MethodBody(startLine, endLine, body);
+
+					methods.add(new Method(projectId, sourceFileId, (sourcePath + "." + name), modifiers, returnType,
+							name, signature, parameters, methodBody));
+
 					super.visit(n, arg);
 				}
 			}.visit(JavaParser.parse(filePath), null);
@@ -68,9 +74,5 @@ public class MethodExtractor {
 
 		return methods;
 	}
-
-	
-	  
-	 
 
 }
