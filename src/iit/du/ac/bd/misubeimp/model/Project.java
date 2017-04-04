@@ -24,7 +24,7 @@ public class Project {
 	}
 
 	public Document getBsonProject() {
-		Document document = new Document("name", this.name);
+		Document document = new Document("_id", this.projectId).append("name", this.name);
 		return document;
 	}
 

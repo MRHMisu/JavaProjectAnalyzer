@@ -26,7 +26,7 @@ public class MongoDBAccess {
 		try {
 
 			MongoClient mongoClient = new MongoClient("localhost", 27017);
-			MongoDatabase database = mongoClient.getDatabase("CodeCloneDB");
+			MongoDatabase database = mongoClient.getDatabase("BugClone");
 			System.out.println("Connect to database successfully");
 			System.out.println(database.getName());
 			MongoCollection<Document> collection = database.getCollection("Methods");

@@ -2,7 +2,9 @@ package iit.du.ac.bd.misubeimp.analyzer;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -32,8 +34,8 @@ public class MethodExtractor {
 		this.sourcePath = sourcePath;
 	}
 
-	public Set<Method> getAllMethods(File filePath) {
-		Set<Method> methods = new HashSet<Method>();
+	public List<Method> getAllMethods(File filePath) {
+		List<Method> methods = new ArrayList<Method>();
 		try {
 			new VoidVisitorAdapter<Object>() {
 				@Override

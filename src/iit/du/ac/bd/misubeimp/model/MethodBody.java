@@ -13,7 +13,7 @@ public class MethodBody {
 		this.startLine = startLine;
 		this.endLine = endLine;
 		this.body = body;
-		this.length = (this.startLine - this.endLine)+1;
+		this.length = (this.endLine - this.startLine)+1;
 	}
 
 	public Document getBsonMethodBody() {
