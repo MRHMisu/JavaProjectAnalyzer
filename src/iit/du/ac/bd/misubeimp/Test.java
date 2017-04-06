@@ -15,13 +15,14 @@ public class Test {
 
 	public static void main(String[] args) throws Exception {
 
-		String basePath = "D:\\Masters\\PaperDataset\\2014_SCAM_An Empirical Analysis of Bug Patterns\\projects-src\\projects\\projects";
-		String projectName = "berkeleyparser";
+		String basePath = "D:\\Masters\\PaperDataset\\2017_ESE_Raters_Reliability\\materials\\ese15-charpentier-al\\data";
+		String projectName = "gumtree";
 		File directorypath = new File(basePath + "\\" + projectName);
 
 		Project project = new Project(projectName);
-		 DataBaseAccess.insertProject(project, "BugClone", "Projects");
-		SourceFileCollector sourceFileCollector = new SourceFileCollector(project.getProjectId());
+		DataBaseAccess.insertProject(project, "RatersClone", "Projects");
+		SourceFileCollector sourceFileCollector = new SourceFileCollector(project.getProjectId(),
+				project.getProjectName());
 
 		List<SourceFile> sourceFiles = sourceFileCollector.getAllFilesFromSourceDirectory(directorypath);
 
@@ -32,12 +33,12 @@ public class Test {
 		 */
 
 		for (SourceFile c : sourceFiles) {
-			DataBaseAccess.insertSourceFile(c, "BugClone", "SourceFiles");
-			MethodExtractor methodExtractor = new MethodExtractor(c.getSourceFileId(), c.getProjectId(),
-					c.getSourcePath());
+			DataBaseAccess.insertSourceFile(c, "RatersClone", "SourceFiles");
+			MethodExtractor methodExtractor = new MethodExtractor(c.getProjectId(), c.getProjectName(),
+					c.getSourceFileId(), c.getSourceFileName(), c.getSourcePath());
 			List<Method> methods = methodExtractor.getAllMethods(new File(c.getAbsolutePath()));
 			if (methods.size() > 0) {
-				DataBaseAccess.insertMethods(methods, "BugClone", "Methods");
+				DataBaseAccess.insertMethods(methods, "RatersClone", "Methods");
 			}
 		}
 		System.out.println("Finished");

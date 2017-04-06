@@ -6,14 +6,16 @@ import org.bson.types.ObjectId;
 public class SourceFile {
 
 	ObjectId projectId;
+	private String projectName;
 	ObjectId sourceFileId;
 	private String fileName;
 	private String absolutePath;
 	private String sourcePath;
 
-	public SourceFile(ObjectId projectId, String fileName, String absolutePath, String sourcePath) {
+	public SourceFile(ObjectId projectId, String projectName, String fileName, String absolutePath, String sourcePath) {
 		sourceFileId = new ObjectId();
 		this.projectId = projectId;
+		this.projectName = projectName;
 		this.fileName = fileName;
 		this.absolutePath = absolutePath;
 		this.sourcePath = sourcePath;
@@ -31,8 +33,17 @@ public class SourceFile {
 		return sourceFileId;
 	}
 
+	public String getSourceFileName() {
+		return this.fileName;
+	}
+
 	public ObjectId getProjectId() {
 		return projectId;
+	}
+
+	public String getProjectName() {
+		return this.projectName;
+
 	}
 
 	@Override
@@ -44,7 +55,8 @@ public class SourceFile {
 
 	public Document getBsonSourceFile() {
 		Document document = new Document("_id", this.sourceFileId).append("projectId", this.projectId)
-				.append("fileName", this.fileName).append("sourcePath", this.sourcePath);
+				.append(projectName, projectName).append("fileName", this.fileName)
+				.append("sourcePath", this.sourcePath);
 		return document;
 	}
 

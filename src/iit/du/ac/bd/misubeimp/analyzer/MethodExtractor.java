@@ -24,13 +24,19 @@ import iit.du.ac.bd.misubeimp.model.MethodParameter;
 
 public class MethodExtractor {
 
-	private ObjectId sourceFileId;
 	private ObjectId projectId;
+	private String projectName;
+	private ObjectId sourceFileId;
+	private String sourceFileName;
+
 	private String sourcePath;
 
-	public MethodExtractor(ObjectId sourceFileId, ObjectId projectId, String sourcePath) {
-		this.sourceFileId = sourceFileId;
+	public MethodExtractor(ObjectId projectId, String projectName, ObjectId sourceFileId, String sourceFileName,
+			String sourcePath) {
 		this.projectId = projectId;
+		this.projectName = projectName;
+		this.sourceFileId = sourceFileId;
+		this.sourceFileName = sourceFileName;
 		this.sourcePath = sourcePath;
 	}
 
@@ -63,7 +69,7 @@ public class MethodExtractor {
 					String body = n.getBody().toString();
 					MethodBody methodBody = new MethodBody(startLine, endLine, body);
 
-					methods.add(new Method(projectId, sourceFileId, (sourcePath + "." + name), modifiers, returnType,
+					methods.add(new Method(projectId,projectName,sourceFileId,sourceFileName,(sourcePath + "." + name), modifiers, returnType,
 							name, signature, parameters, methodBody));
 
 					super.visit(n, arg);

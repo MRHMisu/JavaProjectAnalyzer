@@ -17,6 +17,11 @@ public class Project {
 		return this.projectId;
 	}
 
+	public String getProjectName() {
+
+		return this.name;
+	}
+
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub

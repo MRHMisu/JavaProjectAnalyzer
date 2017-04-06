@@ -8,7 +8,9 @@ import org.bson.types.ObjectId;
 public class Method {
 
 	private ObjectId projectId;
+	private String projectName;
 	private ObjectId sourceFileId;
+	private String sourceFileName;
 	private ObjectId methodId;
 	private String name;
 	private Set<String> modifiers;
@@ -18,11 +20,14 @@ public class Method {
 	private MethodBody methodbody;
 	private String sourcePath;
 
-	public Method(ObjectId projectId, ObjectId sourceFileId, String sourcePath, Set<String> modifiers,
-			String returnType, String name, String signature, Set<MethodParameter> parameters, MethodBody methodBody) {
+	public Method(ObjectId projectId, String projectName, ObjectId sourceFileId, String sourceFileName,
+			String sourcePath, Set<String> modifiers, String returnType, String name, String signature,
+			Set<MethodParameter> parameters, MethodBody methodBody) {
 
 		this.projectId = projectId;
+		this.projectName = projectName;
 		this.sourceFileId = sourceFileId;
+		this.sourceFileName = sourceFileName;
 		this.sourcePath = sourcePath;
 		this.methodId = new ObjectId();
 		this.modifiers = modifiers;
@@ -42,7 +47,8 @@ public class Method {
 
 	public Document getBsonMethod() {
 		Document document = new Document("_id", this.methodId).append("projectId", this.projectId)
-				.append("sourcePath", sourcePath).append("sourceFileId", sourceFileId)
+				.append(projectName, this.projectName).append("sourcePath", sourcePath)
+				.append("sourceFileId", sourceFileId).append(sourceFileName, this.sourceFileName)
 				.append("modifier", this.modifiers).append("returnType", returnType).append("name", name)
 				.append("signature", signature);
 
